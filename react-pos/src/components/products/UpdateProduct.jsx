@@ -212,8 +212,9 @@ export const UpdateProduct = () => {
   
 
   return (    
-    <Grid xs={10} lg={11} style={{ backgroundColor: "#eee", display: 'flex', justifyContent: 'center' }}>
-      <Grid lg={8}>
+    <Box sx={{ flexGrow: 1,height:'100vh',border:'1px solid red', backgroundColor: "#eee"  }} >
+          <Grid container justifyContent={'center'} >
+          <Grid lg={6}>
         <StyledPaper elevation={3}>
           <Typography variant="h5" gutterBottom>
             Update Product
@@ -363,6 +364,7 @@ export const UpdateProduct = () => {
           </Alert>
         </Snackbar>
       </Grid>
-    </Grid>
+          </Grid>
+    </Box>
   );
 };

@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import { Listmenu } from './content/Listmenu';
 import { Cart } from './content/Cart';
+import { Box } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -17,16 +18,27 @@ const Item = styled(Paper)(({ theme }) => ({
 export const CartPage = () => {
   return (
     <>
-        <Grid item xs={10} lg={8}>
-          <Item sx={{ height: "100vh" }}>
-            <Listmenu />
-          </Item>
+      <Box sx={{ flexGrow: 1 }}> 
+        <Grid container>
+          <Grid item xs={8} lg={9}>
+            <Item sx={{ 
+              height: "100vh",
+              overflow: 'auto' 
+            }}>
+              <Listmenu />
+            </Item>
+          </Grid>
+          <Grid item xs={4} lg={3} className='cart'>
+            <Item sx={{ 
+              height: "100vh",
+              overflow: 'auto' 
+            }}>
+              <Cart />
+            </Item>
+          </Grid> 
         </Grid>
-        <Grid item lg={3} className='cart'>
-          <Item sx={{ height: "100vh",  }}>
-            <Cart />
-          </Item>
-        </Grid> 
+      </Box>
+       
     </>
   )
 }

@@ -13,6 +13,10 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import { useNavigate } from "react-router-dom";
 
+const stylesidebar = {
+  display:'flex', flexDirection:'column',alignItems: 'center'
+}
+
 export const Sidenav = () => {
   const navigate = useNavigate();
 
@@ -24,37 +28,29 @@ export const Sidenav = () => {
       <nav aria-label='main mailbox folders'>
         <List>
           <ListItem disablePadding sx={{ my: 4 }} onClick={NavigateHome}>
-            <ListItemButton>
-              <ListItemIcon>
+            <ListItemButton sx={stylesidebar}>
                 <HomeIcon />
-              </ListItemIcon>
               <ListItemText primary='HOME' className='menu' />
             </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem disablePadding sx={{ my: 4 }}>
-            <ListItemButton>
-              <ListItemIcon>
+          <ListItem disablePadding sx={{ my: 4 }} onClick={()=>navigate('/catagory')}>
+            <ListItemButton sx={stylesidebar}>
                 <TextSnippetOutlinedIcon />
-              </ListItemIcon>
               <ListItemText primary='MENU' className='menu' />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem disablePadding sx={{ my: 4 }}>
-            <ListItemButton>
-              <ListItemIcon>
+            <ListItemButton sx={stylesidebar}>           
                 <PaymentIcon />
-              </ListItemIcon>
               <ListItemText primary='PAYMENT' className='menu' />
             </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem disablePadding sx={{ my: 4 }}>
-            <ListItemButton>
-              <ListItemIcon>
+          <ListItem disablePadding sx={{ my: 4 }} onClick={()=> navigate('/orders')}>
+            <ListItemButton sx={stylesidebar}>
                 <BorderAllIcon/>
-              </ListItemIcon>
               <ListItemText primary='ORDERS' className='menu' />
             </ListItemButton>
           </ListItem>

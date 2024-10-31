@@ -50,7 +50,6 @@ export const Management_pro = () => {
     
           console.log('Processed Products:', productsArray); // ดูข้อมูลหลังแปลง
           setAllProducts(productsArray);
-            setAllProducts(productsArray)
           })
           .catch((error) => console.error(error));
       })
@@ -90,10 +89,10 @@ export const Management_pro = () => {
 
 
   return (
-    <>
-          <Grid item xs={10} lg={11} >
-     
-            <section className="h-100 h-custom " style={{ backgroundColor: "#eee" }}>
+    <Box sx={{ flexGrow: 1,height:'100vh', backgroundColor: "#eee"  }} >
+          <Grid container >
+            <Grid xs={12} lg={12}>
+            <section className="h-100 h-custom ">
                 <MDBContainer className="py-5 h-100">
                     <MDBRow className="justify-content-center align-items-center h-100">
                     <MDBCol style={{height:'100%',width:'100%'}}>
@@ -196,8 +195,9 @@ export const Management_pro = () => {
                     </MDBRow>
                 </MDBContainer>
             </section>
+            </Grid>
 
-            </Grid> 
-    </>
+           </Grid> 
+    </Box>
   )
 }

@@ -66,7 +66,7 @@ export const Listmenu = () => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result,'result')
-           // ตรวจสอบโครงสร้างข้อมูลและแปลงให้เป็น array ถ้าจำเป็น
+      // ตรวจสอบโครงสร้างข้อมูลและแปลงให้เป็น array
       const productsArray = Array.isArray(result) ? result : 
       result.result ? Array.isArray(result.result) ? result.result : [] :
       [];

@@ -116,139 +116,138 @@ export const AddProduct = () => {
 
   return (    
 
-    <Grid  xs={10} lg={11} style={{ backgroundColor: "#eee",display:'flex', justifyContent:'center' }}>
-        <Grid lg={8}
-        >
-        <StyledPaper elevation={3} >
-        <Typography variant="h5" gutterBottom>
-          Add New Product
-        </Typography>
+    <Box sx={{ flexGrow: 1,height:'100vh',border:'1px solid red', backgroundColor: "#eee"  }} >
+          <Grid container justifyContent={'center'} >
+            <Grid item xs={12} lg={6}>
+            <StyledPaper elevation={3} >
+            <Typography variant="h5" gutterBottom>
+              Add New Product
+            </Typography>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                label="Product Name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                variant="outlined"
-              />
-            </Grid>
+            <Box component="form" onSubmit={handleSubmit} noValidate>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Product Name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    variant="outlined"
+                  />
+                </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                label="Price"
-                type="number"
-                value={formData.price}
-                onChange={(e) => setFormData({...formData, price: e.target.value})}
-                variant="outlined"
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">฿</InputAdornment>,
-                }}
-              />
-            </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Price"
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) => setFormData({...formData, price: e.target.value})}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">฿</InputAdornment>,
+                    }}
+                  />
+                </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                label="Stock Quantity"
-                type="number"
-                value={formData.stock_quantity}
-                onChange={(e) => setFormData({...formData, stock_quantity: e.target.value})}
-                variant="outlined"
-              />
-            </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Stock Quantity"
+                    type="number"
+                    value={formData.stock_quantity}
+                    onChange={(e) => setFormData({...formData, stock_quantity: e.target.value})}
+                    variant="outlined"
+                  />
+                </Grid>
+                
+
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Description"
+                    multiline
+                    rows={4}
+                    value={formData.desc}
+                    onChange={(e) => setFormData({...formData, desc: e.target.value})}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <FormControl sx={{ width:'100%'}}>
+                    <InputLabel id="demo-simple-select-helper-label">catagory</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-helper-label"
+                    id="catagory"
+                    value={formData.category}
+                    label="catagory"
+                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                    >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={'อาหารเสริม'}>อาหารเสริม</MenuItem>
+                    <MenuItem value={'นม/โยเกิร์ต'}>นม/โยเกิร์ต</MenuItem>
+                    <MenuItem value={'ยาสามัญ'}>ยาสามัญ</MenuItem>
+                    <MenuItem value={'เครื่องดื่ม'}>เครื่องดื่ม</MenuItem>
+                    </Select>
+                    </FormControl>
+                </Grid>
+
             
+                <Grid item xs={12}>
+                  <label htmlFor="contained-button-file">
+                    <Input
+                      accept="image/*"
+                      id="contained-button-file"
+                      type="file"
+                      onChange={handleImageChange}
+                    />
+                    <Button variant="contained" component="span">
+                      Upload Product Image
+                    </Button>
+                  </label>
+                  {preview && (
+                    <Box mt={2} display="flex" justifyContent="center">
+                      <PreviewImage src={preview} alt="Preview" />
+                    </Box>
+                  )}
+                </Grid>
 
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Description"
-                multiline
-                rows={4}
-                value={formData.desc}
-                onChange={(e) => setFormData({...formData, desc: e.target.value})}
-                variant="outlined"
-              />
-            </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                  >
+                    Create Product
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </StyledPaper>
 
-            <Grid item xs={12}>
-                <FormControl sx={{ width:'100%'}}>
-                <InputLabel id="demo-simple-select-helper-label">catagory</InputLabel>
-                <Select
-                labelId="demo-simple-select-helper-label"
-                id="catagory"
-                value={formData.category}
-                label="catagory"
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
-                >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value={'อาหารเสริม'}>อาหารเสริม</MenuItem>
-                <MenuItem value={'นม/โยเกิร์ต'}>นม/โยเกิร์ต</MenuItem>
-                <MenuItem value={'ยาสามัญ'}>ยาสามัญ</MenuItem>
-                <MenuItem value={'เครื่องดื่ม'}>เครื่องดื่ม</MenuItem>
-                </Select>
-                </FormControl>
-            </Grid>
-
-        
-            <Grid item xs={12}>
-              <label htmlFor="contained-button-file">
-                <Input
-                  accept="image/*"
-                  id="contained-button-file"
-                  type="file"
-                  onChange={handleImageChange}
-                />
-                <Button variant="contained" component="span">
-                  Upload Product Image
-                </Button>
-              </label>
-              {preview && (
-                <Box mt={2} display="flex" justifyContent="center">
-                  <PreviewImage src={preview} alt="Preview" />
-                </Box>
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                Create Product
-              </Button>
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+          >
+            <Alert 
+              onClose={handleCloseSnackbar} 
+              severity={snackbarSeverity}
+              variant="filled"
+            >
+              {snackbarMessage}
+            </Alert>
+          </Snackbar>
             </Grid>
           </Grid>
-        </Box>
-      </StyledPaper>
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert 
-          onClose={handleCloseSnackbar} 
-          severity={snackbarSeverity}
-          variant="filled"
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
-        </Grid>
-
-    </Grid>
-  
+    </Box>
   );
 };
