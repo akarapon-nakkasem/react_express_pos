@@ -18,21 +18,19 @@ import menu4 from '../assets/menu-image/menu-4.jpg';
 
 
 
-export const Catagory = () => {
+export const Payment = () => {
 
     const navigate = useNavigate();
 
-    const setSession = (catagory) => {
-        sessionStorage.setItem('catagory',JSON.stringify(catagory))
-        navigate('/')
+    const setSession = (pay) => {
+        sessionStorage.setItem('payment',JSON.stringify(pay))
+        navigate('/checkout');
     }
 
-
     const data = [
-        {id: 1, name: 'อาหารเสริม', image:`${menu1}`, description: 'Description 1'},
-        {id: 2, name: 'นม-โยเกิร์ต', image: `${milk}`, description: 'Description 2'},
-        {id: 3, name: 'ยาสามัญ', image: `${menu3}`, description: 'Description 3'},
-        {id: 4, name: 'เครื่องดืม', image: `${menu4}`, description: 'Description 4'},
+        {id: 1, name: 'เงินสด', image:`${menu1}`, description: 'ชำระเงินสด: จ่ายเป็นเงินสดทันทีเมื่อซื้อสินค้า/บริการ',icons:'fa-regular fa-money-bill-1'},
+        {id: 2, name: 'โอนเงิน', image: `${milk}`, description: 'โอนเงิน: โอนเงินจากบัญชีธนาคารผ่านแอปหรืออินเทอร์เน็ตแบงก์กิ้ง', icons:'fa-solid fa-money-bill-transfer'},
+        {id: 3, name: 'บัตรเครดิต', image: `${menu3}`, description: 'บัตรเครดิต: ชำระเงินผ่านบัตรเครดิต สามารถผ่อนชำระได้ตามเงื่อนไขของธนาคาร',icons:'fa-solid fa-credit-card ms-2'}
         
     ]
   return (
@@ -40,22 +38,24 @@ export const Catagory = () => {
       <Box sx={{ flexGrow: 1,height:'100vh', backgroundColor: "#eee",border:'1px solid #eee'  }} >
         <Grid2  sx={{display:'flex', mt:5, alignItems:'center'}} >
             {data.map((item) => (
-                <Grid2 key={item.id} item xs={12} sm={6} lg={3} sx={{mx:3}}> {/* ปรับ responsive grid */}
-                <Card onClick={()=> setSession(item.name)}>
+                <Grid2 key={item.id} item xs={12} sm={6} lg={4} sx={{mx:3,width:'100%'}}> {/* ปรับ responsive grid */}
+                <Card onClick={()=> setSession(item.name)} sx={{width:'100%'}}>
                     <CardActionArea>
-                    <CardMedia
+                    {/* <CardMedia
                         component="img"
                         height="140"
                         image={item.image}
                         alt="green iguana"
-                    />
+                    /> */}
+                    <Box sx={{height:'200px',display:'flex',justifyContent:'center',alignItems:'center',background:'#03a9f4'}}>
+                     <i className={item.icons} style={{fontSize:'120px',color:'#eee'}}></i>
+                    </Box>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                         {item.name}
                         </Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        {item.description}
                         </Typography>
                     </CardContent>
                     </CardActionArea>

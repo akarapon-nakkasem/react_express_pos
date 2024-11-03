@@ -22,22 +22,6 @@ router.get('/',(req,res) => {
 })
 
 
-// router.get('/:id',(req,res) => {
-//     const { id } = req.params;
-//     console.log(id,'id');
-//     const query_products =  'SELECT * FROM SALE';
-//     sql.query(query_products,(err,data)=>{
-//         if(err){
-//             console.log(err);
-//             res.status(500).send('Server Error');
-//             return res.json(err);
-//         }
-//         return res.json({result: data.recordsets[0]});
-        
-
-//     }) 
-// })
-
 
 // API สำหรับดึงรายละเอียดใบเสร็จตาม sale_id
 router.get('/order_details/:sale_id', (req, res) => {
@@ -216,6 +200,24 @@ router.post('/place_order', async (req, res) => {
     }
 });
 
+
+router.get('/serial_number',(req,res) => {
+    const query =`SELECT TOP(1) sale_id FROM SALE ORDER BY sale_id DESC `
+
+    sql.query(query,(err,data)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Server Error');
+            return res.json(err);
+        }
+        return res.json({
+            status: 'success',
+            result: data.recordset
+        });
+        
+
+    }) 
+})
 
 
 

@@ -21,8 +21,12 @@ export const Sidenav = () => {
   const navigate = useNavigate();
 
   const NavigateHome = () => {
-    navigate("/");
+    sessionStorage.removeItem('catagory');
+    navigate("/home");
+    // window.location.reload();
   }
+
+  
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <nav aria-label='main mailbox folders'>
@@ -41,7 +45,7 @@ export const Sidenav = () => {
             </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem disablePadding sx={{ my: 4 }}>
+          <ListItem disablePadding sx={{ my: 4 }} onClick={()=> navigate('/payment')}>
             <ListItemButton sx={stylesidebar}>           
                 <PaymentIcon />
               <ListItemText primary='PAYMENT' className='menu' />

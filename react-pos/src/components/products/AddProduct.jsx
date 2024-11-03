@@ -116,7 +116,7 @@ export const AddProduct = () => {
 
   return (    
 
-    <Box sx={{ flexGrow: 1,height:'100vh',border:'1px solid red', backgroundColor: "#eee"  }} >
+    <Box sx={{ flexGrow: 1,height:'100vh', backgroundColor: "#eee"  }} >
           <Grid container justifyContent={'center'} >
             <Grid item xs={12} lg={6}>
             <StyledPaper elevation={3} >
@@ -191,7 +191,7 @@ export const AddProduct = () => {
                         <em>None</em>
                     </MenuItem>
                     <MenuItem value={'อาหารเสริม'}>อาหารเสริม</MenuItem>
-                    <MenuItem value={'นม/โยเกิร์ต'}>นม/โยเกิร์ต</MenuItem>
+                    <MenuItem value={'นม-โยเกิร์ต'}>นม/โยเกิร์ต</MenuItem>
                     <MenuItem value={'ยาสามัญ'}>ยาสามัญ</MenuItem>
                     <MenuItem value={'เครื่องดื่ม'}>เครื่องดื่ม</MenuItem>
                     </Select>

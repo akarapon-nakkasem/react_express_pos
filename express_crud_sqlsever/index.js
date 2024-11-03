@@ -3,6 +3,7 @@ const cors = require('cors');
 const usersRouter = require('./routers/users');
 const productsRouter = require('./routers/products');
 const orderRouter = require('./routers/order');
+const reportRouter = require('./routers/report');
 const app = express();
 const port = 8000;
 
@@ -19,6 +20,7 @@ app.use(cors());
 //define router
 app.use('/products', productsRouter);
 app.use('/order', orderRouter);
+app.use('/sales', reportRouter);
 
 
 // Start the server on port 3000

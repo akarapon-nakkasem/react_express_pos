@@ -67,8 +67,9 @@ export const UpdateProduct = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [originalImage, setOriginalImage] = useState('');
 
-  console.log(oldname,'oldname')
+  console.log(originalImage,'originalImage')
 
   console.log(image,'image')
      // ฟังก์ชันสำหรับหา URL ของรูปภาพ
@@ -98,9 +99,17 @@ export const UpdateProduct = () => {
         });
 
         // If there's an existing image, set the preview
+        //  if (productData.img) {
+        //  setPreview(`${getImageUrl(productData.img)}`);
+        //   setOldname(`${productData.img}`);
+        //   setOriginalImage(productData.img); // เก็บชื่อไฟล์รูปภาพต้นฉบับ
+        // }
+
         if (productData.img) {
-          setPreview(`${getImageUrl(productData.img)}`);
+          const imagePath = getImageUrl(productData.img);
+          setPreview(imagePath);
           setOldname(`${productData.img}`);
+          setOriginalImage(imagePath);
         }
 
         setIsLoading(false);
@@ -130,6 +139,56 @@ export const UpdateProduct = () => {
     }
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+    
+  //   const formDataToSend = new FormData();
+  //   formDataToSend.append('name', formData.name);
+  //   formDataToSend.append('price', formData.price);
+  //   formDataToSend.append('stock_quantity', formData.stock_quantity);
+  //   formDataToSend.append('description', formData.description);
+  //   formDataToSend.append('category', formData.category);
+  //   if (image) {
+  //     formDataToSend.append('img', image);
+  //   } else if (!preview) {
+  //     formDataToSend.append('img', '');
+  //   } else {
+  //     formDataToSend.append('img', originalImage);
+  //   }
+
+
+
+  //   console.log(formDataToSend,'formDataToSend');
+
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:8000/products/update/${id}`,
+  //       formDataToSend,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data'
+  //         }
+  //       }
+  //     );
+      
+  //     if (response.data.status === 'success') {
+  //       setSnackbarMessage('Product updated successfully');
+  //       setSnackbarSeverity('success');
+  //       setOpenSnackbar(true);
+        
+  //       // Redirect after successful update
+  //       setTimeout(() => {
+  //         navigate('/management_pro');
+  //       }, 1000);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error updating product:', error);
+  //     setSnackbarMessage('Error updating product');
+  //     setSnackbarSeverity('error');
+  //     setOpenSnackbar(true);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -139,14 +198,19 @@ export const UpdateProduct = () => {
     formDataToSend.append('stock_quantity', formData.stock_quantity);
     formDataToSend.append('description', formData.description);
     formDataToSend.append('category', formData.category);
+  
+    // แก้ไขการจัดการรูปภาพ
     if (image) {
-      formDataToSend.append('img', image); // Changed to 'img' to match backend
+      // กรณีมีการอัพโหลดรูปใหม่
+      formDataToSend.append('img', image);
+    } else if (!preview && !originalImage) {
+      // กรณีไม่มีรูปเลย
+      formDataToSend.append('img', '');
+    } else {
+      // กรณียังใช้รูปเดิม
+      formDataToSend.append('currentImage', oldname); // ส่งชื่อไฟล์รูปเดิม
     }
-
-
-
-    console.log(formDataToSend,'formDataToSend');
-
+  
     try {
       const response = await axios.put(
         `http://localhost:8000/products/update/${id}`,
@@ -163,7 +227,6 @@ export const UpdateProduct = () => {
         setSnackbarSeverity('success');
         setOpenSnackbar(true);
         
-        // Redirect after successful update
         setTimeout(() => {
           navigate('/management_pro');
         }, 1000);
@@ -175,6 +238,7 @@ export const UpdateProduct = () => {
       setOpenSnackbar(true);
     }
   };
+
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -200,6 +264,8 @@ export const UpdateProduct = () => {
         setSnackbarMessage('Image deleted successfully');
         setSnackbarSeverity('success');
         setOpenSnackbar(true);
+        setImage(null);
+        setOriginalImage('');
       }
     } catch (error) {
       console.error('Error deleting image:', error);
@@ -212,7 +278,7 @@ export const UpdateProduct = () => {
   
 
   return (    
-    <Box sx={{ flexGrow: 1,height:'100vh',border:'1px solid red', backgroundColor: "#eee"  }} >
+    <Box sx={{ flexGrow: 1,height:'100vh', backgroundColor: "#eee"  }} >
           <Grid container justifyContent={'center'} >
           <Grid lg={6}>
         <StyledPaper elevation={3}>
@@ -284,7 +350,7 @@ export const UpdateProduct = () => {
                       <em>None</em>
                     </MenuItem>
                     <MenuItem value={'อาหารเสริม'}>อาหารเสริม</MenuItem>
-                    <MenuItem value={'นม/โยเกิร์ต'}>นม/โยเกิร์ต</MenuItem>
+                    <MenuItem value={'นม-โยเกิร์ต'}>นม/โยเกิร์ต</MenuItem>
                     <MenuItem value={'ยาสามัญ'}>ยาสามัญ</MenuItem>
                     <MenuItem value={'เครื่องดื่ม'}>เครื่องดื่ม</MenuItem>
                   </Select>

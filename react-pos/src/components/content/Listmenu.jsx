@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Typography , Box} from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -29,6 +30,59 @@ export const Listmenu = () => {
   const [allproducts,setAllProducts] = useState([])
   const dispatch = useDispatch();
   const [cols, setCols] = useState(getColumns());
+  const [currentCategory, setCurrentCategory] = useState(() => {
+    return JSON.parse(sessionStorage.getItem('catagory')) || 'All Products';
+  });
+
+  console.log(currentCategory,'currentCategory')
+  const fetchCatalogs = () => {
+    if(currentCategory !== 'All Products') {
+      fetchCatogory(currentCategory);
+    } else {
+      fetchData();
+    }
+  };
+
+  const fetchCatogory = (catagoryName) => {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+      };
+      
+      fetch("http://localhost:8000/products/category/" + catagoryName, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            console.log(result,'result')
+            if(result.status ==='success') {
+              setAllProducts(result.result)
+            }
+        })
+        .catch((error) => console.error(error));
+  }
+
+
+  const fetchData = (()=> {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+    
+    fetch("http://localhost:8000/products", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result,'result')
+      // ตรวจสอบโครงสร้างข้อมูลและแปลงให้เป็น array
+      const productsArray = Array.isArray(result) ? result : 
+      result.result ? Array.isArray(result.result) ? result.result : [] :
+      [];
+
+      console.log('Processed Products:', productsArray); // ดูข้อมูลหลังแปลง
+      setAllProducts(productsArray);
+        setAllProducts(productsArray)
+      })
+      .catch((error) => console.error(error));
+  })
+
   function getColumns() {
     const screenSize = window.innerWidth;
     if (screenSize < 660) {
@@ -51,36 +105,27 @@ export const Listmenu = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newCategory = JSON.parse(sessionStorage.getItem('catagory'));
+      setCurrentCategory(newCategory);
+    };
+  
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [])
+
   const addCart = (product) => {
     dispatch(addToCart(product));
    
   };
 
-  const fetchProduct = (()=> {
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow"
-    };
-    
-    fetch("http://localhost:8000/products", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result,'result')
-      // ตรวจสอบโครงสร้างข้อมูลและแปลงให้เป็น array
-      const productsArray = Array.isArray(result) ? result : 
-      result.result ? Array.isArray(result.result) ? result.result : [] :
-      [];
+  useEffect(()=>{
+    fetchCatalogs();
+  },[currentCategory]);
 
-      console.log('Processed Products:', productsArray); // ดูข้อมูลหลังแปลง
-      setAllProducts(productsArray);
-        setAllProducts(productsArray)
-      })
-      .catch((error) => console.error(error));
-  })
-
-  useEffect(() => {
-    fetchProduct();
-  }, [])
 
    // ฟังก์ชันสำหรับหา URL ของรูปภาพ
   const getImageUrl = (imageName) => {
@@ -94,6 +139,11 @@ export const Listmenu = () => {
 
   return (
  <>
+      {/* <Box>
+        <Typography variant="h3">
+        All Products
+        </Typography>
+      </Box> */}
      <ImageList  cols={cols}>
       {allproducts && allproducts.map((item) => (
         <ImageListItem key={item.product_id} sx={{ margin: "8px" }}>
@@ -130,6 +180,7 @@ export const Listmenu = () => {
         </ImageListItem>
       ))}
     </ImageList>
+
     <ToastContainer autoClose={1000} />
  </>
   );

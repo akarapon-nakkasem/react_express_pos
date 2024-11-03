@@ -1,11 +1,33 @@
 import * as React from "react";
+import { useEffect,useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+
 import { Orders } from "./Orders";
 
 
 export const Cart = () => {
+
+const [serialNumber, setSerialNumber] = useState(null);
+
+console.log(serialNumber,'serialNumber')
+useEffect(() =>{
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow"
+  };
+  
+  fetch("http://localhost:8000/order/serial_number", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      if(result.status === "success") {
+        setSerialNumber(result.result);
+      }
+    })
+    .catch((error) => console.error(error));
+},[]);
+
   return (
     <Box
       sx={{
@@ -18,7 +40,11 @@ export const Cart = () => {
           ORDER #
         </Typography>
         <Typography variant='h4' gutterBottom>
-          12564878
+          {serialNumber && serialNumber[0]? serialNumber[0].sale_id: (
+            <p style={{fontSize:'12px'}}>
+            Loading...
+            </p>
+          )} 
         </Typography>
       </Box>
       <Divider sx={{ mb: 2 }} />

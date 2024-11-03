@@ -12,6 +12,9 @@ import { Management_pro } from "./products/Management_pro";
 import {UpdateProduct } from "./products/UpdateProduct";
 import { OrderAll } from "./orders/OrderAll";
 import { Catagory } from "./Catagory";
+import TotalGrowthBarChart from "./Dashboard/TotalGrowthBarChart";
+import { Payment } from "./Payment";
+import { Login } from "./Login";
 import "/src/style/Allcontent.css";
 
 
@@ -25,26 +28,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export const HomePage = () => {
   return (
-    // <Box sx={{ flexGrow: 1 }}>
-    //   <Grid container sx={{ mt: 1 }}>
-    //     <Grid item xs={2} lg={1}>
-    //       <Item sx={{ height: "100vh" }}>
-    //         <Sidenav />
-    //       </Item>
-    //     </Grid>
-    //     <Routes>
-    //           <Route path="/" element={<CartPage />} />
-    //           <Route path="/checkout" element={<CheckOut />} />
-    //           <Route path="/addproduct" element={<AddProduct />} />
-    //           <Route path="/management_pro" element={<Management_pro />} />
-    //           <Route path="/update_product/:id" element={<UpdateProduct/>} />
-    //           <Route path="/orders" element={<OrderAll/>} />
-    //           <Route path="/catagory" element={<Catagory/>} />
-    //     </Routes>
-        
-    //   </Grid>
-    // </Box>
-
   <Box sx={{ flexGrow: 1 }}>
   <Grid container sx={{ mt: 1 }}>
     <Grid item xs={2} lg={1}>
@@ -55,12 +38,16 @@ export const HomePage = () => {
     <Grid item xs={10} lg={11}> {/* เพิ่ม Grid item ครอบ Routes */}
       <Routes>
         <Route path="/" element={<CartPage />} />
+        <Route path="/home" element={<CartPage />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/addproduct" element={<AddProduct />} />
         <Route path="/management_pro" element={<Management_pro />} />
         <Route path="/update_product/:id" element={<UpdateProduct/>} />
         <Route path="/orders" element={<OrderAll/>} />
         <Route path="/catagory" element={<Catagory/>} />
+        <Route path="/dashboard" element={<TotalGrowthBarChart/>} />
+        <Route path="/payment" element={<Payment/>} />
+        {/* <Route path="/login" element={<Login/>} /> */}
       </Routes>
     </Grid>
   </Grid>

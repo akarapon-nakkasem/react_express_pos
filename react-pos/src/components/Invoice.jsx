@@ -112,13 +112,13 @@ const Invoice = ({open, handleClose, s_id}) => {
                       <tr key={index}>
                         <td style={{ textAlign: "start" }}>{item.product_name}</td>
                         <td style={{ textAlign: "right",fontSize:'12px' }}>({item.quantity})</td>
-                        <td style={{ textAlign: "right" }}>${item.unit_price?.toFixed(2)}</td>
+                        <td style={{ textAlign: "right" }}>{item.unit_price?.toFixed(2)} ฿</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
                       <td style={{ textAlign: "start" }}>UI Design</td>
-                      <td style={{ textAlign: "right" }}>$2,000.00</td>
+                      <td style={{ textAlign: "right" }}>2,000.00 ฿</td>
                     </tr>
                   )}
                 </tbody>
@@ -126,15 +126,15 @@ const Invoice = ({open, handleClose, s_id}) => {
               <hr />
               <p style={{display:'flex',justifyContent:'space-between'}}>
                 <strong>Subtotal:</strong>
-                <span>${details?.data?.summary?.subtotal?.toFixed(2) || '10,300.00'}</span>
+                <span>{details?.data?.summary?.subtotal?.toFixed(2)  || '10,300.00'} ฿</span>
               </p>
               <p style={{display:'flex',justifyContent:'space-between'}}>
                 <strong>Tax:</strong>
-                <span>${details?.data?.summary?.vat?.toFixed(2) || '620.00'}</span>
+                <span>{details?.data?.summary?.vat?.toFixed(2) || '620.00'} ฿</span>
               </p>
               <h2 style={{display:'flex',justifyContent:'space-between'}}>
                 <strong>Total:</strong>
-                <span>${details?.data?.summary?.grand_total?.toFixed(2) || '10,920.00'}</span>
+                <span>{details?.data?.summary?.grand_total?.toFixed(2) || '10,920.00'} ฿</span>
               </h2>
             </div>
 

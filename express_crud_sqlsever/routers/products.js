@@ -108,10 +108,63 @@ router.post('/create_product', upload, (req, res) => {
 });
 
 
+// router.put('/update/:id', upload, (req, res) => {
+//     const productId = req.params.id;
+//     const { name, price, stock_quantity, description, category, img } = req.body;
+//     const imgFilename = req.files?.img ? req.files.img[0].filename : null;
+//     console.log(imgFilename,'imgFilename');
+
+//     try {
+//         const request = new sql.Request();
+//         request.input('id', sql.Int, productId);
+//         request.input('name', sql.NVarChar(100), name);
+//         request.input('price', sql.Decimal(10,2), price);
+//         request.input('stock_quantity', sql.Int, stock_quantity);
+//         request.input('description', sql.NVarChar(500), description);
+//         request.input('category', sql.NVarChar(500), category);
+//         request.input('img', sql.NVarChar(255), imgFilename);
+
+//         const updateQuery = `
+//             UPDATE PRODUCT 
+//             SET name = @name,
+//                 price = @price,
+//                 stock_quantity = @stock_quantity,
+//                 description = @description,
+//                 category = @category,
+//                 img = @img
+//             WHERE product_id = @id;
+            
+//             SELECT @@ROWCOUNT AS affected;
+//         `;
+
+//         request.query(updateQuery, (err, result) => {
+//             if (err) {
+//                 return res.status(500).json({
+//                     status: 'error',
+//                     message: 'Failed to update product',
+//                     error: err.message
+//                 });
+//             }
+
+//             return res.json({
+//                 status: 'success',
+//                 message: 'Product updated successfully'
+//             });
+//         });
+
+//     } catch (error) {
+//         return res.status(500).json({
+//             status: 'error',
+//             message: 'Server error',
+//             error: error.message
+//         });
+//     }
+// });
+
 router.put('/update/:id', upload, (req, res) => {
     const productId = req.params.id;
-    const { name, price, stock_quantity, description, category, img } = req.body;
-    const imgFilename = req.files?.img ? req.files.img[0].filename : null;
+    const { name, price, stock_quantity, description, category, currentImage } = req.body;
+    const imgFilename = req.files?.img ? req.files.img[0].filename : currentImage || '';
     console.log(imgFilename,'imgFilename');
 
     try {
@@ -131,7 +184,10 @@ router.put('/update/:id', upload, (req, res) => {
                 stock_quantity = @stock_quantity,
                 description = @description,
                 category = @category,
-                img = @img
+                img = CASE 
+                    WHEN @img = '' THEN img  -- ถ้าไม่มีการอัพโหลดรูปใหม่ ให้ใช้รูปเดิม
+                    ELSE @img                -- ถ้ามีการอัพโหลดรูปใหม่ ให้ใช้รูปใหม่
+                END
             WHERE product_id = @id;
             
             SELECT @@ROWCOUNT AS affected;
@@ -161,41 +217,6 @@ router.put('/update/:id', upload, (req, res) => {
     }
 });
 
-
-// router.put('/clear-image/:id', (req, res) => {
-//     const product_id = req.params.id;
-//     const request = new sql.Request();
-//     request.input('product_id', sql.Int, product_id);
-
-//     const updateQuery = `
-//         UPDATE PRODUCT 
-//         SET img = '' 
-//         WHERE product_id = @product_id;
-//         SELECT @@ROWCOUNT AS affected;
-//     `;
-
-//     request.query(updateQuery, (err, result) => {
-//         if (err) {
-//             return res.status(500).json({
-//                 status: 'error',
-//                 message: 'Failed to clear image field',
-//                 error: err.message
-//             });
-//         }
-
-//         if (result.recordset[0].affected === 0) {
-//             return res.status(404).json({
-//                 status: 'error',
-//                 message: 'Product not found'
-//             });
-//         }
-
-//         return res.json({
-//             status: 'success',
-//             message: 'Image field cleared successfully'
-//         });
-//     });
-// })
 
 router.put('/clear-image/:id', (req, res) => {
     const product_id = req.params.id;
@@ -328,6 +349,38 @@ router.delete('/delete/:id', (req, res) => {
         });
     }
 });
+
+router.get('/category/:name', (req, res) => {
+    const categoryName = req.params.name;
+    const request = new sql.Request();
+    
+    // Properly bind the parameter
+    request.input('name', sql.NVarChar, categoryName);
+    
+    const query = `
+        SELECT *
+        FROM PRODUCT
+        WHERE category LIKE '%' + @name + '%'
+    `;
+
+    request.query(query, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({
+                status: 'error',
+                message: 'Failed to fetch products by category',
+                error: err.message
+            });
+        }
+        
+        return res.json({
+            status: 'success',
+            result: data.recordset
+        });
+    });
+});
+
+
 
 
 module.exports = router;

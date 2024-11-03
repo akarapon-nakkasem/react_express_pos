@@ -40,6 +40,9 @@ export const CheckOut = () => {
       (state) => state.cart
     );
 
+
+
+    
     const cart = useSelector((state) => state.cart);
 
     console.log(cartItems,'cartItems')
@@ -56,7 +59,9 @@ export const CheckOut = () => {
     dispatch(removeFromCart(product));
     };
     
-    const [paymentMethod, setPaymentMethod] = useState("CreditCard")
+    const [paymentMethod, setPaymentMethod] = useState(() => {
+      return JSON.parse(sessionStorage.getItem('payment'))
+    })
     const [open, setOpen] = useState(false);
     
     const navigate = useNavigate();
@@ -142,16 +147,16 @@ export const CheckOut = () => {
               <Grid container  justifyContent={'center'}>
                 <Grid  xs={12} lg={12} >
                 {/* <Invoice open={open} handleClose={handleClose} /> */}
-                <section className="h-100 h-custom " style={{ backgroundColor: "#eee" }}>
+                <section className="h-100 h-custom ">
                     <MDBContainer className="py-5 h-100">
                       <div className="d-flex justify-content-center" style={{marginBottom:'20px'}}>
-                      <MDBBtn color="info" className='w-100 me-2 py-4' onClick={() => handlePaymentChange('Transfer money')}>
+                      <MDBBtn color="info" className='w-100 me-2 py-4' onClick={() => handlePaymentChange('โอนเงิน')}>
                             <h4>
                             โอนเงิน{" "}
                             <i className="fa-regular fa-money-bill-1 ms-2"></i>
                             </h4>           
                         </MDBBtn>
-                        <MDBBtn color="info" className='w-100 ms-2 py-4' onClick={() => handlePaymentChange('CreditCard')}>
+                        <MDBBtn color="info" className='w-100 ms-2 py-4' onClick={() => handlePaymentChange('บัตรเครดิต')}>
                             <h4>
                             บัตรเครดิต{" "}
                             <i className="fa-solid fa-credit-card ms-2"></i>
@@ -234,7 +239,7 @@ export const CheckOut = () => {
                                 </MDBCol>
 
                                 <MDBCol lg="5">
-                                {paymentMethod && paymentMethod == 'CreditCard' ?
+                                {paymentMethod && paymentMethod == 'บัตรเครดิต' ?
                                     <MDBCard className="bg-primary text-white rounded-3">
                                     <MDBCardBody>
                                         <div className="d-flex justify-content-between align-items-center mb-4">
@@ -331,7 +336,7 @@ export const CheckOut = () => {
                                             <h6 className="mb-3">Payment Instructions:</h6>
                                             <ol className="mb-0">
                                               <li className="mb-2">Scan QR code with your banking app</li>
-                                              <li className="mb-2">Verify the amount: $4818.00</li>
+                                              <li className="mb-2">Verify the amount: {totalAmountWithVat.toFixed(2)} ฿</li>
                                             </ol>
                                           </div>
                                 
