@@ -86,8 +86,6 @@ const handleSignIn = async () => {
       scopes: ['user.read', 'openid', 'profile', 'email'],
       prompt: 'select_account'
     };
-    
-    console.log('Starting login redirect...');
     await instance.loginRedirect(loginRequest);
   } catch (error) {
     console.error('Login failed:', error);
@@ -114,7 +112,7 @@ const handleSignOut = () => {
           >
             POS
           </Typography>
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -122,7 +120,7 @@ const handleSignOut = () => {
               placeholder='Search…'
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{display:'flex', alignItems:'center'}}>
           <Typography

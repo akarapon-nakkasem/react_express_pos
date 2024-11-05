@@ -28,13 +28,21 @@ export const Catagory = () => {
     }
 
 
-    const data = [
-        {id: 1, name: 'อาหารเสริม', image:`${menu1}`, description: 'Description 1'},
-        {id: 2, name: 'นม-โยเกิร์ต', image: `${milk}`, description: 'Description 2'},
-        {id: 3, name: 'ยาสามัญ', image: `${menu3}`, description: 'Description 3'},
-        {id: 4, name: 'เครื่องดืม', image: `${menu4}`, description: 'Description 4'},
+    // const data = [
+    //     {id: 1, name: 'อาหารเสริม', image:`${menu1}`, description: 'Description 1'},
+    //     {id: 2, name: 'นม-โยเกิร์ต', image: `${milk}`, description: 'Description 2'},
+    //     {id: 3, name: 'ยาสามัญ', image: `${menu3}`, description: 'Description 3'},
+    //     {id: 4, name: 'เครื่องดืม', image: `${menu4}`, description: 'Description 4'},
         
-    ]
+    // ]
+
+    const data = [
+        {id: 1, name: 'อาหารเสริม', image:`${menu1}`, description: 'ผลิตภัณฑ์เสริมอาหารที่ช่วยบำรุงร่างกาย เพิ่มพลังงาน และส่งเสริมสุขภาพ รวมทั้งวิตามินและแร่ธาตุที่จำเป็น'},
+        {id: 2, name: 'นม-โยเกิร์ต', image: `${milk}`, description: 'นมและโยเกิร์ตสดใหม่ มีประโยชน์ ช่วยเสริมสร้างกระดูกและฟันให้แข็งแรง พร้อมรสชาติอร่อย'},
+        {id: 3, name: 'ยาสามัญ', image: `${menu3}`, description: 'ยาสามัญประจำบ้าน สำหรับรักษาอาการเจ็บป่วยทั่วไป เช่น ยาแก้ปวด ยาแก้ไข้ และยาลดกรด'},
+        {id: 4, name: 'เครื่องดื่ม', image: `${menu4}`, description: 'เครื่องดื่มหลากหลาย ช่วยเพิ่มความสดชื่น มีทั้งเครื่องดื่มเย็นและเครื่องดื่มบำรุงกำลัง'}
+    ];
+    
   return (
    <>
       <Box sx={{ flexGrow: 1,height:'100vh', backgroundColor: "#eee",border:'1px solid #eee'  }} >
@@ -54,8 +62,7 @@ export const Catagory = () => {
                         {item.name}
                         </Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        {item.description}
                         </Typography>
                     </CardContent>
                     </CardActionArea>

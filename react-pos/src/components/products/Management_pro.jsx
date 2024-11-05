@@ -92,10 +92,10 @@ export const Management_pro = () => {
     <Box sx={{ flexGrow: 1,height:'100vh', backgroundColor: "#eee"  }} >
           <Grid container >
             <Grid xs={12} lg={12}>
-            <section className="h-100 h-custom ">
+            <section className="h-100 h-custom " >
                 <MDBContainer className="py-5 h-100">
                     <MDBRow className="justify-content-center align-items-center h-100">
-                    <MDBCol style={{height:'100%',width:'100%'}}>
+                    <MDBCol style={{height:'800px',width:'100%',overflow:'scroll'}}>
                         <MDBCard>
                         <MDBCardBody className="p-4">
                             <MDBRow>

@@ -147,7 +147,7 @@ export const CheckOut = () => {
               <Grid container  justifyContent={'center'}>
                 <Grid  xs={12} lg={12} >
                 {/* <Invoice open={open} handleClose={handleClose} /> */}
-                <section className="h-100 h-custom ">
+                <section >
                     <MDBContainer className="py-5 h-100">
                       <div className="d-flex justify-content-center" style={{marginBottom:'20px'}}>
                       <MDBBtn color="info" className='w-100 me-2 py-4' onClick={() => handlePaymentChange('โอนเงิน')}>
@@ -194,10 +194,11 @@ export const CheckOut = () => {
                                     </div>
                                     </div>
 
-                                  {cartItems.map ((item) => {
+                              <div  style={{overflow:'scroll',height:'600px'}}>
+                              {cartItems.map ((item) => {
                                     const { name, price, img,cartQuantity, description, product_id } = item;
                                     return(
-                                        <MDBCard className="mb-3" key={product_id}>
+                                        <MDBCard className="mb-3" key={product_id} >
                                     <MDBCardBody>
                                         <div className="d-flex justify-content-between">
                                         <div className="d-flex flex-row align-items-center">
@@ -235,6 +236,7 @@ export const CheckOut = () => {
                                     )
                                     
                                   })}
+                              </div>
                                     
                                 </MDBCol>
 
@@ -327,19 +329,19 @@ export const CheckOut = () => {
                                               style={{ width: "auto", height: "400px" }}
                                             />
                                             <p className="mb-1">Scan to pay</p>
-                                            <p className="small">Bank: XXX Bank</p>
-                                            <p className="small">Account: XXXX-XXXX-XXXX</p>
+                                            {/* <p className="small">Bank: XXX Bank</p>
+                                            <p className="small">Account: XXXX-XXXX-XXXX</p> */}
                                           </div>
                                 
                                           {/* Payment Instructions */}
-                                          <div className="bg-light text-dark p-3 rounded-3 mb-4">
+                                          {/* <div className="bg-light text-dark p-3 rounded-3 mb-4">
                                             <h6 className="mb-3">Payment Instructions:</h6>
                                             <ol className="mb-0">
                                               <li className="mb-2">Scan QR code with your banking app</li>
                                               <li className="mb-2">Verify the amount: {totalAmountWithVat.toFixed(2)} ฿</li>
                                             </ol>
                                           </div>
-                                
+                                 */}
                                           <hr />
                                 
                                           {/* Payment Summary */}

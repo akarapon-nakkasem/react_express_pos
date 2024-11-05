@@ -19,7 +19,6 @@ const styleModal = {
 };
 
 const Invoice = ({open, handleClose, s_id}) => {
-  console.log(s_id, 's_id')
   const invoiceRef = useRef();
   const [details, setDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +48,6 @@ const Invoice = ({open, handleClose, s_id}) => {
     fetch(`http://localhost:8000/order/order_details/${s_id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result, 'response')
         if(result.status === 'success') {
           setDetails(result);
         }

@@ -37,7 +37,7 @@ useEffect(() =>{
     >
       <Box sx={{ display: "flex", justifyContent: "space-between", pb: 4 }}>
         <Typography variant='h4' gutterBottom>
-          ORDER #
+          ORDER
         </Typography>
         <Typography variant='h4' gutterBottom>
           {serialNumber && serialNumber[0]? serialNumber[0].sale_id: (
